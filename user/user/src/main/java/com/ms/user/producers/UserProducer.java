@@ -6,6 +6,9 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import static com.ms.user.constants.Constants.CADASTRO_REALIZADO_COM_SUCESSO;
+import static com.ms.user.constants.Constants.SEJA_BEM_VINDO;
+
 @Component
 public class UserProducer {
 
@@ -22,8 +25,8 @@ public class UserProducer {
         var emailDto = new EmailDto();
         emailDto.setUserId(userModel.getUserId());
         emailDto.setEmailTo(userModel.getEmail());
-        emailDto.setSubject("Cadastro realizado com sucesso!");
-        emailDto.setText(userModel.getName() + ", seja bem vindo(a)! \nAgradecemos o seu cadastro, aproveite agora todos os recursos da nossa plataforma!");
+        emailDto.setSubject(CADASTRO_REALIZADO_COM_SUCESSO);
+        emailDto.setText(userModel.getName() + SEJA_BEM_VINDO);
 
         rabbitTemplate.convertAndSend("", routingKey, emailDto);
     }
